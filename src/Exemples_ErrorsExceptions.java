@@ -73,28 +73,41 @@ public class Exemples_ErrorsExceptions {
         } while (opcio != 0);
     }
 
+    /**
+     * Muestro más informacion con e.printStackTrace()
+     */
     static void outOfMemoryError(){
+        boolean error = false;
         List<Integer> list = new ArrayList<>();
         try {
             while (true) {
                 list.add(999999999); // Afegim un nombre gran a la llista
             }
         } catch (OutOfMemoryError e) {
-
+            error=true;
             e.printStackTrace();
             System.out.println("S'ha produït un error d'excés de memòria (OutOfMemoryError)");
 
-//
-        }finally {
-            System.out.println("S'ha produit un error. Selecciona una altra opcio del menù:");
+
+        }
+        finally {
+            if (!error){
+                System.out.println("La funcion se ha ejecutado correctamente");
+            }else System.out.println("Corrije el error antes de volver a ejecutar la funcion");
         }
 
     }
     static void stackOverFlowError() {
+        boolean error = false;
         try {
             cridaRecursiva(0);
         } catch (StackOverflowError e) {
+            error=true;
             System.out.println("S'ha produït un error de desbordament de la pila (StackOverflowError)");
+        }finally {
+            if (!error){
+                System.out.println("La funcion se ha ejecutado correctamente");
+            }else System.out.println("Corrije el error antes de volver a ejecutar la funcion");
         }
     }
     public static void cridaRecursiva(int i) {
@@ -103,12 +116,18 @@ public class Exemples_ErrorsExceptions {
     }
 
     static void illegalArgumentExceptionsArrays(){
+        boolean error = false;
         int[] array = {10, 20, 30, 40, 50};
         try {
             int index = trobarElement(array, 60); // provem de trobar l'index d'un element que no es troba a l'array
             System.out.println("index element: " + index);
         } catch (IllegalArgumentException e) {
+            error=true;
             System.out.println("S'ha produït un error d'argument no vàlid (IllegalArgumentException): " + e.getMessage());
+        }finally {
+            if (!error){
+                System.out.println("La funcion se ha ejecutado correctamente");
+            }else System.out.println("Corrije el error antes de volver a ejecutar la funcion");
         }
     }
 
@@ -127,9 +146,9 @@ public class Exemples_ErrorsExceptions {
             int result = arrelQuadrada(-1); // Intentem obtenir l'arrel quadrada d'un nombre negatiu
             System.out.println("Resultat: " + result);
         } catch (IllegalArgumentException e) {
+
             System.out.println("S'ha produït un error d'argument no vàlid (IllegalArgumentException): " + e.getMessage());
-        }finally {
-            System.out.println("Per solucionar aquest error cal passar-li a la funcio 'arrelQuadrada' un numero positiu.");
+
         }
     }
 
@@ -145,6 +164,7 @@ public class Exemples_ErrorsExceptions {
             int resultat = dividir(10, 0); // Intentem dividir 10 per zero
             System.out.println("Resultat de la divisió: " + resultat);
         } catch (ArithmeticException e) {
+            e.printStackTrace();
             System.out.println("S'ha produït un error d'aritmètica (ArithmeticException): " + e.getMessage());
         }
     }
@@ -182,8 +202,6 @@ public class Exemples_ErrorsExceptions {
             System.out.println("S'ha produït un error de connexió de xarxa (SocketException): " + e1.getMessage());
         } catch (IOException e2) {
             System.out.println("S'ha produït un error d'entrada/sortida (IOException): " + e2.getMessage());
-        } finally {
-
         }
         //podriem fer només un catch amb una sola variable e >>> catch (SocketException | IOException e)
     }
