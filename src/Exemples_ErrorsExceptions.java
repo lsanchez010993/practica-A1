@@ -182,10 +182,18 @@ public class Exemples_ErrorsExceptions {
             System.out.println("S'ha produït un error de connexió de xarxa (SocketException): " + e1.getMessage());
         } catch (IOException e2) {
             System.out.println("S'ha produït un error d'entrada/sortida (IOException): " + e2.getMessage());
+        } finally {
+
         }
         //podriem fer només un catch amb una sola variable e >>> catch (SocketException | IOException e)
     }
 
+    /**
+     *
+     * @param host
+     * @param port
+     * @throws IOException Indica que la excepcion se tratara en un metodo superior
+     */
     public static void connexioSrv(String host, int port) throws IOException {
         Socket socket = new Socket(host, port);
         // Aquí es realitzaria la lògica de comunicació amb el servidor
