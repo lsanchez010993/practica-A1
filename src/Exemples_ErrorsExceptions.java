@@ -72,8 +72,8 @@ public class Exemples_ErrorsExceptions {
             }
         } while (opcio != 0);
     }
-
     /**
+     * Añado un boolean para comprobar si se ha producido un error y en el bloque finally muestro el estado de la variable
      * Muestro más informacion con e.printStackTrace()
      */
     static void outOfMemoryError(){
@@ -97,6 +97,9 @@ public class Exemples_ErrorsExceptions {
         }
 
     }
+    /**
+     * Añado un boolean para comprobar si se ha producido un error y en el bloque finally muestro el estado de la variable
+     */
     static void stackOverFlowError() {
         boolean error = false;
         try {
@@ -114,7 +117,9 @@ public class Exemples_ErrorsExceptions {
         System.out.println("Número: " + i);
         cridaRecursiva(i + 1); // Crida recursiva infinita
     }
-
+    /**
+     * Añado un boolean para comprobar si se ha producido un error y en el bloque finally muestro el estado de la variable
+     */
     static void illegalArgumentExceptionsArrays(){
         boolean error = false;
         int[] array = {10, 20, 30, 40, 50};
@@ -140,32 +145,49 @@ public class Exemples_ErrorsExceptions {
         throw new IllegalArgumentException("L'element no es troba a l'array");
     }
 
-
+    /**
+     * Añado un boolean para comprobar si se ha producido un error y en el bloque finally muestro el estado de la variable
+     */
     static void illegalArgumentExceptionsMath(){
+        boolean error = false;
         try {
             int result = arrelQuadrada(-1); // Intentem obtenir l'arrel quadrada d'un nombre negatiu
             System.out.println("Resultat: " + result);
         } catch (IllegalArgumentException e) {
-
+            error=true;
             System.out.println("S'ha produït un error d'argument no vàlid (IllegalArgumentException): " + e.getMessage());
 
+        }finally {
+            if (!error){
+                System.out.println("La funcion se ha ejecutado correctamente");
+            }else System.out.println("Corrije el error antes de volver a ejecutar la funcion");
         }
     }
 
     public static int arrelQuadrada(int number) {
+
         if (number < 0) {
             throw new IllegalArgumentException("El nombre no pot ser negatiu");
         }
         return (int) Math.sqrt(number);
     }
-
+    /**
+     * Añado un boolean para comprobar si se ha producido un error y en el bloque finally muestro el estado de la variable
+     * Muestro más informacion con e.printStackTrace()
+     */
     static void arithmeticException(){
+        boolean error = false;
         try {
             int resultat = dividir(10, 0); // Intentem dividir 10 per zero
             System.out.println("Resultat de la divisió: " + resultat);
         } catch (ArithmeticException e) {
+            error=true;
             e.printStackTrace();
             System.out.println("S'ha produït un error d'aritmètica (ArithmeticException): " + e.getMessage());
+        }finally {
+            if (!error){
+                System.out.println("La funcion se ha ejecutado correctamente");
+            }else System.out.println("Corrije el error antes de volver a ejecutar la funcion");
         }
     }
 
@@ -195,14 +217,23 @@ public class Exemples_ErrorsExceptions {
         }
     }
 
+    /**
+     * Añado un boolean para comprobar si se ha producido un error y en el bloque finally muestro el estado de la variable
+     */
     static void socketException(){
+        boolean error = false;
         try {
             connexioSrv("sapalomera.cat", 80); // Intentem connectar-nos a un servidor que pot no existir
         } catch (SocketException e1) {
+            error=true;
             System.out.println("S'ha produït un error de connexió de xarxa (SocketException): " + e1.getMessage());
         } catch (IOException e2) {
+            error=true;
             System.out.println("S'ha produït un error d'entrada/sortida (IOException): " + e2.getMessage());
+        }finally {
+            if (!error) System.out.println("La funcion se ha ejecutado correctamente");
         }
+
         //podriem fer només un catch amb una sola variable e >>> catch (SocketException | IOException e)
     }
 
