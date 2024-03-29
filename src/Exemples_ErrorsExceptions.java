@@ -200,7 +200,7 @@ public class Exemples_ErrorsExceptions {
     static void fileNotFoundException(){
         Scanner scanner = null; // Declarar el objeto Scanner fuera del try-catch
         try {
-            scanner = llegirSolucioExamen("E:/solucio_examen_uf5.txt"); // Intentem llegir un fitxer que no existeix
+            scanner = llegirSolucioExamen("solucio_examen_uf5.txt"); // Intentem llegir un fitxer que no existeix
         } catch (FileNotFoundException e) {
             System.out.println("No s'ha trobat el fitxer: " + e.getMessage());
         } finally {
@@ -223,10 +223,15 @@ public class Exemples_ErrorsExceptions {
        return new Scanner(fitxer);
     }
 
-    static void eOFException(){
-        String nomFitxer = "notes_finals.dat";
+    /**
+     * El bucle genera una excepcion al leer cualquier archivo, ya que es infinito.
+     */
+    static void eOFException() {
+        String nomFitxer = "E:/notes_finals.dat";
+        DataInputStream lectura = null;
 
-        try (DataInputStream lectura = new DataInputStream(new FileInputStream(nomFitxer))){
+        try {
+            lectura = new DataInputStream(new FileInputStream(nomFitxer));
             while (true) {
                 int valor = lectura.readInt();
                 System.out.println("Valor llegit: " + valor);
@@ -235,8 +240,14 @@ public class Exemples_ErrorsExceptions {
             System.out.println("S'ha arribat al final del fitxer: " + e1.getMessage());
         } catch (IOException e2) {
             System.out.println("S'ha produït un error d'entrada/sortida: " + e2.getMessage());
-        }finally {
-
+        } finally {
+            if (lectura != null) {
+                try {
+                    lectura.close();
+                } catch (IOException e) {
+                    System.out.println("Error al tancar el fitxer: " + e.getMessage());
+                }
+            }
         }
     }
 }
